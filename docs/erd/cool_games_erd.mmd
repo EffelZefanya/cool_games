@@ -1,0 +1,109 @@
+# Cool Games ERD Mermaid Mark Down
+
+```mermaid
+
+erDiagram
+    users ||--o| customers : "is"
+    users ||--o| publishers : "is"
+    users ||--o| admins : "is"
+    
+    customers ||--o{ orders : "places"
+    customers ||--o{ customer_game_library : "owns"
+    customers ||--o{ ledger : "financial_history"
+    
+    publishers ||--o{ games : "manages"
+    developers ||--o{ games : "develops"
+    
+    games ||--o{ customer_game_library : "is_in"
+    games ||--o{ orders : "sold_in"
+    games ||--o{ game_genres : "has"
+    genres ||--o{ game_genres : "categorizes"
+    games ||--o{ game_quantity_history : "tracks_stock"
+    
+    orders ||--o{ ledger : "records_payment"
+
+    users {
+        serial id PK
+        varchar email
+        varchar hashed_password
+        varchar role "admin/customer/publisher"
+    }
+
+    customers {
+        serial id PK
+        int user_id FK
+        varchar customer_name
+        float current_balance
+    }
+
+    publishers {
+        serial id PK
+        int user_id FK
+        varchar publisher_name
+        varchar address
+    }
+
+    admins {
+        serial id PK
+        int user_id FK
+        varchar security_level
+    }
+
+    developers {
+        serial id PK
+        varchar developer_name
+        varchar address
+    }
+
+    games {
+        serial id PK
+        int publisher_id FK
+        int developer_id FK
+        varchar game_name
+        float price
+        int stock_level
+        date release_date
+    }
+
+    genres {
+        serial id PK
+        varchar genre_name
+    }
+
+    game_genres {
+        int game_id PK, FK
+        int genre_id PK, FK
+    }
+
+    orders {
+        serial id PK
+        int customer_id FK
+        int game_id FK
+        date order_date
+        int qty
+        float total_amount
+    }
+
+    ledger {
+        serial id PK
+        int customer_id FK
+        int order_id FK "optional"
+        date transaction_date
+        varchar type "credit/debit"
+        float amount
+    }
+
+    game_quantity_history {
+        serial id PK
+        int game_id FK
+        int change_amount
+        date transaction_date
+    }
+
+    customer_game_library {
+        int customer_id PK, FK
+        int game_id PK, FK
+        date purchase_date
+    }
+
+```
