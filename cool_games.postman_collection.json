@@ -1,0 +1,112 @@
+
+{
+	"info": {
+		"name": "Cool-Games API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"customer@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"customer\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "http://localhost:8080/register"
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"customer@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "http://localhost:8080/login"
+					}
+				}
+			]
+		},
+		{
+			"name": "Games",
+			"item": [
+				{
+					"name": "Get All Games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/games?search=rpg&min_price=10",
+							"query": [
+								{ "key": "search", "value": "rpg" },
+								{ "key": "min_price", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Game (Publisher)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"developer_id\": 1,\n    \"game_name\": \"Epic Adventure\",\n    \"price\": 59.99,\n    \"stock_level\": 100,\n    \"genres\": [{\"id\": 1}]\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "http://localhost:8080/games"
+					}
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Top Up Balance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 100.00\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "http://localhost:8080/orders/topup"
+					}
+				},
+				{
+					"name": "Purchase Game",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game_id\": 1\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "http://localhost:8080/orders/buy"
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{ "key": "jwt_token", "value": "" }
+	]
+}
