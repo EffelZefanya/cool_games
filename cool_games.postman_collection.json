@@ -1,0 +1,236 @@
+{
+	"info": {
+		"name": "Cool-Games API Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@coolgames.com\",\n    \"password\": \"password123\",\n    \"role\": \"admin\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/register"
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@coolgames.com\",\n    \"password\": \"password123\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/login"
+					}
+				}
+			]
+		},
+		{
+			"name": "Games Management",
+			"item": [
+				{
+					"name": "Fetch All Games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/games?search=&min_price=0&max_price=0",
+							"query": [
+								{ "key": "search", "value": "" },
+								{ "key": "min_price", "value": "0" },
+								{ "key": "max_price", "value": "0" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Game By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/games/1"
+					}
+				},
+				{
+					"name": "Get My Listed Games (Publisher)",
+					"request": {
+						"method": "GET",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"url": "{{base_url}}/games/my-games"
+					}
+				},
+				{
+					"name": "Create Game",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"developer_id\": 1,\n    \"game_name\": \"Cyberpunk Go\",\n    \"price\": 29.99,\n    \"stock_level\": 100,\n    \"genres\": [{\"id\": 1}]\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/games"
+					}
+				},
+				{
+					"name": "Update Game",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"developer_id\": 1,\n    \"game_name\": \"Cyberpunk Go 2.0\",\n    \"price\": 34.99,\n    \"stock_level\": 150\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/games/1"
+					}
+				},
+				{
+					"name": "Restock Game",
+					"request": {
+						"method": "PATCH",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 25\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/games/1/restock"
+					}
+				},
+				{
+					"name": "Delete Game",
+					"request": {
+						"method": "DELETE",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"url": "{{base_url}}/games/1"
+					}
+				}
+			]
+		},
+		{
+			"name": "Genres (CRUD)",
+			"item": [
+				{
+					"name": "Get All Genres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/genres"
+					}
+				},
+				{
+					"name": "Create Genre (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"genre_name\": \"Action\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/genres"
+					}
+				},
+				{
+					"name": "Update Genre (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"genre_name\": \"Action-Adventure\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/genres/1"
+					}
+				},
+				{
+					"name": "Delete Genre (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"url": "{{base_url}}/genres/1"
+					}
+				}
+			]
+		},
+		{
+			"name": "Orders & Library",
+			"item": [
+				{
+					"name": "Purchase Game",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"game_id\": 1\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/orders/buy"
+					}
+				},
+				{
+					"name": "Top Up Balance",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 100.00\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": "{{base_url}}/orders/topup"
+					}
+				},
+				{
+					"name": "Get My Library",
+					"request": {
+						"method": "GET",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"url": "{{base_url}}/orders/library"
+					}
+				},
+				{
+					"name": "Sales Report (Publisher)",
+					"request": {
+						"method": "GET",
+						"header": [ { "key": "Authorization", "value": "Bearer {{jwt_token}}" } ],
+						"url": "{{base_url}}/orders/sales-report"
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (pm.response.code === 200 || pm.response.code === 201) {",
+					"    var jsonData = pm.response.json();",
+					"    if (jsonData.token) {",
+					"        pm.collectionVariables.set('jwt_token', jsonData.token);",
+					"    }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{ "key": "base_url", "value": "http://localhost:8080" },
+		{ "key": "jwt_token", "value": "" }
+	]
+}
