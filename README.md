@@ -1,6 +1,6 @@
 # Cool-Games API 🎮
 
-A high-performance digital game marketplace backend built with **Go** and **PostgreSQL**. This project utilizes **Clean Architecture** (Hexagonal Architecture) to maintain a strict separation between business logic, delivery mechanisms, and data persistence.
+A digital game marketplace backend built with **Go** and **PostgreSQL**. This project utilizes **Clean Architecture** (Hexagonal Architecture) to maintain a strict separation between business logic, delivery mechanisms, and data persistence.
 
 ## 🌟 Key Features
 
